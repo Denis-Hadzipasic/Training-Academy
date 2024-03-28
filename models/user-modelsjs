@@ -1,0 +1,17 @@
+const { Schema, model } = require("mongoose");
+
+const userSchema = new Schema({
+  email: { type: String, required: true },
+  password: { type: String, required: true, select: false },
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+  role: { type: String, enum: ["admin", "ASP", "user"] },
+  dateOfRegistration: { type: Date, default: Date.now() },
+  status: { type: String, enum: ["active", "inactive"], default: "active" },
+
+  // classesRegistered: {} will come from the Schema
+});
+
+const User = model("User", userSchema);
+
+module.exports = User;

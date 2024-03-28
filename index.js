@@ -1,17 +1,19 @@
-require("dotenv/config")
-require("./db.js")
+require("dotenv/config");
+require("./db.js");
 
-const express = require("express")
-const app = express()
-const PORT = process.env.PORT
+const express = require("express");
+const app = express();
+const PORT = process.env.PORT;
 
-app.use(express.json())
+const errorHandler = require("./middlewares/errorHandler.js");
+const userRouter = require("./routers/user-router.js");
 
+app.use(express.json());
 
-app.get("/", (req, res) => {
-    res.send("Hello World!")
-})
+app.use("/user", userRouter);
+
+app.use(errorHandler);
 
 app.listen(PORT, () => {
-    console.log(`Website listening on http://localhost:${PORT}`)
-})
+  console.log(`Website listening on http://localhost:${PORT}`);
+});
